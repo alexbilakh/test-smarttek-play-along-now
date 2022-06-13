@@ -23,7 +23,7 @@ export default ActivityLoader;
 
 const Container = styled.div<any>`
   width: ${(props) => (IsMobile || IsTablet ? vwToPx(100) : maxWidth)};
-  height: ${(props) => maxHeight}
+  height: ${(props) => maxHeight};
   display: flex;
   flex-direction: row;
   justify-content: center;
