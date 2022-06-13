@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
 import { responsiveDimension, vhToPx, validEmail } from "../../utils/helpers";
 import PopupEmailsSent from "./PopupEmailsSent";
+import { AppContext } from "../../App";
+import axios from "axios";
 
 const layoutAttr = {
   formInput: {
@@ -44,17 +46,33 @@ const ThroughEmail = (props: ThroughEmailProps) => {
   const [emails, setEmails] = useState<string>("");
   const [sharedEmails, setSharedEmails] = useState<string[]>([]);
   const [isEmailSent, setEmailSent] = useState<boolean>(false);
+  const { referralCode } = useContext(AppContext);
 
   const handleEmailsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmails(e.target.value);
     setSharedEmails(e.target.value.split(",").filter(validEmail));
   };
 
-  const handleKeyShareClick = () => {
+  const handleKeyShareClick = async () => {
     if (sharedEmails.length === 0) {
       alert("EMAIL(S) SHOULD NOT BE EMPTY!");
       return;
     }
+
+    try {
+      await axios.post("/send-email", {
+        fromEmail: "bosko.kyrylo399@gmail.com",
+        fromName: "Kyrylo Bosko",
+        toEmails: sharedEmails,
+        subject: "Play Along Now Key",
+        content: `Here is the code. ${referralCode}`,
+      });
+    } catch (err) {
+      console.log(err);
+      alert("Something went wrong. Please try again later.");
+      return;
+    }
+
     setSharedEmails([]);
     setEmailSent(true);
   };

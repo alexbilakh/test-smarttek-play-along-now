@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AppContext } from "../../App";
 import styled from "styled-components";
 import MenuBanner from "../../components/common/MenuBanner";
 import {
@@ -19,10 +20,10 @@ const ShareThrough = (props: ShareThroughProps) => {
   const [isSharingThroughEmails, setSharingThroughEmails] =
     useState<boolean>(false);
   const [isKeyCopied, setKeyCopied] = useState<boolean>(false);
-  const [referralCode] = useState<string>("AMB000X2");
+  const { referralCode } = useContext(AppContext);
 
   const onCopyToClipboard = () => {
-    copyToClipboard(referralCode);
+    copyToClipboard(referralCode as string);
     setKeyCopied(true);
   };
 
@@ -34,10 +35,7 @@ const ShareThrough = (props: ShareThroughProps) => {
 
       {isKeyCopied && (
         <PopupWrapper>
-          <PopupCopyToClipboard
-            close={() => setKeyCopied(false)}
-            referralCode={referralCode}
-          />
+          <PopupCopyToClipboard close={() => setKeyCopied(false)} />
         </PopupWrapper>
       )}
 

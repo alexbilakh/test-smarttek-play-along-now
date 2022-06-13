@@ -1,7 +1,8 @@
 import { createContext, useMemo, useState } from "react";
 import styled from "styled-components";
 import AppHeader from "./components/layouts/AppHeader";
-import Social from "./pages/ShareStatus";
+import Social from "./components/ShareStatus";
+import "./utils/axios";
 
 const PageWrapper = styled.div`
   width: 100%;
@@ -32,14 +33,19 @@ const MainContainer = styled.div`
 interface AppContextAttrs {
   isSubPage?: boolean;
   setIsSubPage?: any;
+  referralCode?: string;
 }
 
 export const AppContext = createContext<AppContextAttrs>({});
 
 function App() {
   const [isSubPage, setIsSubPage] = useState<boolean>(false);
+  const [referralCode, setReferralCode] = useState<string>("AMB000X2");
 
-  const value = useMemo(() => ({ isSubPage, setIsSubPage }), [isSubPage]);
+  const value = useMemo(
+    () => ({ isSubPage, setIsSubPage, referralCode, setReferralCode }),
+    [isSubPage, referralCode]
+  );
 
   return (
     <AppContext.Provider value={value}>

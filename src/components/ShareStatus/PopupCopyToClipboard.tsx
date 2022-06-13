@@ -1,13 +1,11 @@
+import { useContext } from "react";
 import styled from "styled-components";
 import { vhToPx, responsiveDimension } from "../../utils/helpers";
+import { AppContext } from "../../App";
 
-const PopupCopyToClipboard = ({
-  close,
-  referralCode,
-}: {
-  close: () => void;
-  referralCode: string | number;
-}) => {
+const PopupCopyToClipboard = ({ close }: { close: () => void }) => {
+  const { referralCode } = useContext(AppContext);
+
   return (
     <PopupContainer onClick={close}>
       <Section
