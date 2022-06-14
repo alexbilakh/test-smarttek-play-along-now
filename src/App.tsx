@@ -3,6 +3,13 @@ import styled from "styled-components";
 import AppHeader from "./components/layouts/AppHeader";
 import Social from "./components/ShareStatus";
 import "./utils/axios";
+import {
+  IsMobile,
+  IsTablet,
+  vwToPx,
+  maxWidth,
+  maxHeight,
+} from "./utils/helpers";
 
 const PageWrapper = styled.div`
   width: 100%;
@@ -14,8 +21,8 @@ const PageWrapper = styled.div`
 `;
 
 const AppWrapper = styled.div`
-  width: 668.61px;
-  height: 969px;
+  width: ${(props) => (IsMobile || IsTablet ? vwToPx(100) : maxWidth)};
+  height: ${(props) => maxHeight}
   position: relative;
   display: flex;
   margin: 0 auto;
