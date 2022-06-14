@@ -22,7 +22,7 @@ const PageWrapper = styled.div`
 
 const AppWrapper = styled.div`
   width: ${(props) => (IsMobile || IsTablet ? vwToPx(100) : maxWidth)};
-  height: ${(props) => maxHeight}
+  height: ${(props) => maxHeight};
   position: relative;
   display: flex;
   margin: 0 auto;
